@@ -1,0 +1,7 @@
+/home/lambda/dev/GEODESIC/build/CMakeFiles/glad.dir
+/home/lambda/dev/GEODESIC/build/CMakeFiles/imgui.dir
+/home/lambda/dev/GEODESIC/build/CMakeFiles/edit_cache.dir
+/home/lambda/dev/GEODESIC/build/CMakeFiles/rebuild_cache.dir
+/home/lambda/dev/GEODESIC/build/src/CMakeFiles/motor.dir
+/home/lambda/dev/GEODESIC/build/src/CMakeFiles/edit_cache.dir
+/home/lambda/dev/GEODESIC/build/src/CMakeFiles/rebuild_cache.dir

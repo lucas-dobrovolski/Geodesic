@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/motor.dir/core/App.cpp.o CMakeFiles/motor.dir/core/Window.cpp.o CMakeFiles/motor.dir/main.cpp.o -o motor  -lglfw ../libglad.a ../libimgui.a -ldl -lpthread -lGL 

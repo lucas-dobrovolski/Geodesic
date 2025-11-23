@@ -1,12 +1,4 @@
-# Graphic Computer Simulations
-# añadir tiempo y movimiento
 
-El programa consiste en un objeto tipo Core.
-Core es el *objeto director* de 6 "ministros" llamados *controles*:
-
-> class Core{ LgcCtrl, WinCtrl, UICtrl, }
-
-Se crea un objeto Core, se crea cada controlador
 
 git init
 git status

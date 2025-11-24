@@ -11,7 +11,6 @@ public:
 
     bool shouldClose() const;
     void pollEvents() const;
-    void swapBuffers() const;
 
     GLFWwindow* raw() const { return m_window; }
     

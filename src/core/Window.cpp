@@ -18,23 +18,13 @@ Window::Window(int width, int height, const std::string& title) {
         return;
     }
 
-    glfwMakeContextCurrent(m_window);
-    glfwSwapInterval(1); // VSync
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Error: No se pudo inicializar GLAD.\n";
-        glfwDestroyWindow(m_window);
-        glfwTerminate();
-        m_window = nullptr;
-        return;
-    }
 }
 
 Window::~Window() {
     if (m_window) {
         glfwDestroyWindow(m_window);
     }
-    glfwTerminate();
+
 }
 
 bool Window::shouldClose() const {
@@ -43,10 +33,4 @@ bool Window::shouldClose() const {
 
 void Window::pollEvents() const {
     glfwPollEvents();
-}
-
-void Window::swapBuffers() const {
-    if (m_window) {
-        glfwSwapBuffers(m_window);
-    }
 }

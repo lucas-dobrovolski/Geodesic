@@ -6,8 +6,8 @@ CXXFLAGS  := -std=c++20 -Wall -Wextra -Wpedantic \
              -I./external -I./external/glad/include \
              -I./external/imgui -I./external/imgui/backends \
              -I./src
-LDFLAGS   := -lglfw -ldl -lGL -lpthread
-
+LDFLAGS   := -lglfw -ldl -lGL -lpthread \
+            -lX11 -lXcursor -lXi -lXrandr
 # ============================
 #     DIRECTORIOS
 # ============================

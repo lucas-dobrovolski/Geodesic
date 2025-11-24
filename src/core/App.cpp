@@ -12,6 +12,7 @@ App::App() {
 }
 
 App::~App() {
+    std::cout << "Running shutdown()\n";
     shutdown();
 }
 
@@ -34,15 +35,30 @@ bool App::init() {
 
     m_gui = new Gui(m_window->raw());
 
+    m_renderer = new Renderer();
+    m_camera = nullptr; // ya haremos una cámara más adelante
+
+    m_testMesh = new Mesh();
+    m_testShader = new Shader(nullptr, nullptr);
+    m_testMaterial = new Material(m_testShader);
+
     return true;
 }
 
 void App::mainLoop() {
     while (!m_window->shouldClose()) {
 
-        glClearColor(0.02f, 0.02f, 0.04f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        m_renderer->beginFrame(*m_camera);
         
+        DrawCommand cmd;
+        cmd.mesh = m_testMesh;
+        cmd.material = m_testMaterial;
+        cmd.model = glm::mat4(1.0f);
+
+        m_renderer->submit(cmd);
+
+        m_renderer->endFrame();
+
         m_gui->begin();
 
         m_gui->render();
@@ -58,14 +74,18 @@ void App::shutdown() {
     if (m_context) {
         m_context->makeCurrent(); // asegurate de tener un contexto activo
     }
-
+    
+    delete m_testMaterial;    
+    delete m_testShader;
+    delete m_testMesh;
+    delete m_renderer;
     delete m_gui;
-
-
     delete m_context;
     delete m_window;
+
     m_context = nullptr;
     m_window = nullptr;
 
     glfwTerminate();
+
 }

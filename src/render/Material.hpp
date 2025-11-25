@@ -7,6 +7,7 @@ public:
     Material(Shader* shader);
     ~Material();
 
+    Shader* shader() const { return m_shader; }
     void bind() const;
 
 private:

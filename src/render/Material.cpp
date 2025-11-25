@@ -7,5 +7,5 @@ Material::Material(Shader* shader)
 Material::~Material() {}
 
 void Material::bind() const {
-    // En el futuro hará shader->bind();
+    m_shader->bind();
 }

@@ -27,8 +27,8 @@ void Renderer::drawFrame() {
         cmd.material->bind();
         
         cmd.material->shader()->setMat4("u_Model", cmd.model);
-        cmd.material->shader()->setMat4("u_View", m_currentCamera->view);
-        cmd.material->shader()->setMat4("u_Projection", m_currentCamera->proj);
+        cmd.material->shader()->setMat4("u_View", m_currentCamera->view());
+        cmd.material->shader()->setMat4("u_Projection", m_currentCamera->proj());
         
         cmd.mesh->draw();
     }

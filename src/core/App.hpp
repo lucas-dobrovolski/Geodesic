@@ -4,6 +4,8 @@
 
 #include "Window.hpp"
 #include "GLContext.hpp"
+#include "Input.hpp"
+#include "Time.hpp"
 
 #include "../render/gui/Gui.hpp"
 #include "../render/Renderer.hpp"
@@ -22,6 +24,11 @@ public:
 private:
     bool init();
     void mainLoop();
+
+    void updateInput();
+    void update(double dt);
+    void render();
+
     void shutdown();
 
     void initImGui();

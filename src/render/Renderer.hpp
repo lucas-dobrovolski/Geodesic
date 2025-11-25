@@ -5,12 +5,8 @@
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "Shader.hpp"
+#include "Camera.hpp"
 
-
-struct Camera {
-    glm::mat4 view;
-    glm::mat4 proj;
-};
 
 
 struct DrawCommand {

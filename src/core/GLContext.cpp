@@ -7,13 +7,13 @@ GLContext::GLContext(GLFWwindow* window) : m_window(window) {
     }
 
     glfwMakeContextCurrent(m_window);
+    glfwSwapInterval(1); // VSync
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "Error: No se pudo inicializar GLAD.\n";
     }
-
-    glfwSwapInterval(1); // VSync
-
+    
+    glEnable(GL_DEPTH_TEST);
 }
 
 GLContext::~GLContext() {

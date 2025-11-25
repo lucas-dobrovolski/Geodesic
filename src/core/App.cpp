@@ -40,8 +40,11 @@ bool App::init() {
 
     m_camera = new Camera();
 
-    m_camera->view = glm::lookAt(glm::vec3(0,0,3), glm::vec3(0,0,0), glm::vec3(0,1,0));
-    m_camera->proj = glm::perspective(glm::radians(70.0f), 1280.f/720.f, 0.1f, 100.f); // ya haremos una cámara más adelante
+    m_camera->setPosition(glm::vec3(0,0,3));
+    m_camera->lookAt(glm::vec3(0,0,0)); // <<< punto al que mira
+    m_camera->setProjection(glm::perspective(glm::radians(70.0f), 1280.f/720.f, 0.1f, 100.f));
+
+    Input::setWindow(m_window->raw()); 
 
     // --- mesh de prueba ---
     std::vector<Vertex> quadVerts = {
@@ -88,25 +91,20 @@ bool App::init() {
 void App::mainLoop() {
     while (!m_window->shouldClose()) {
 
-        m_renderer->beginFrame(*m_camera);
         
-        DrawCommand cmd;
-        cmd.mesh = m_testMesh;
-        cmd.material = m_testMaterial;
-        cmd.model = glm::mat4(1.0f);
+        // --- 1) Input ---
+        updateInput();
 
-        m_renderer->submit(cmd);
+        // --- 2) Lógica ---
+        update(Time::dt());
 
-        m_renderer->drawFrame();
+        // --- 3) Render ---
+        render();
 
-        m_gui->begin();
-
-        m_gui->render();
-
-        m_gui->end();
 
         m_context->swapBuffers();
         m_window->pollEvents();
+        Input::update(); 
     }
 }
 
@@ -128,5 +126,47 @@ void App::shutdown() {
     m_window = nullptr;
 
     glfwTerminate();
+
+}
+
+void App::updateInput(){
+    Input::update();
+
+    // Por ejemplo: mover la cámara
+    float speed = 5.0f * (1.0f/60.0f);
+
+    if (Input::isKeyDown(GLFW_KEY_W))
+        m_camera->moveLocal({0, 0, -speed});
+    if (Input::isKeyDown(GLFW_KEY_S))
+        m_camera->moveLocal({0, 0, speed});
+
+    if (Input::isMouseButtonDown(GLFW_MOUSE_BUTTON_RIGHT)) {
+        glm::vec2 delta = Input::getMouseDelta();
+        m_camera->rotateYawPitch(delta.x * 0.1f, delta.y * 0.1f);
+    }
+}
+
+void App::update(double dt){
+    Time::beginFrame();
+}
+
+void App::render(){
+
+    m_renderer->beginFrame(*m_camera);
+
+    DrawCommand cmd;
+    cmd.mesh = m_testMesh;
+    cmd.material = m_testMaterial;
+    cmd.model = glm::mat4(1.0f);
+
+    m_renderer->submit(cmd);
+
+    m_renderer->drawFrame();
+
+    m_gui->begin();
+
+    m_gui->render();
+
+    m_gui->end();
 
 }
